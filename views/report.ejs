@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShareNStudy - Report</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="topbar"><div class="logo">ShareNStudy</div><div class="nav"><a href="/dashboard">Dashboard</a></div></div>
+  <div class="container">
+    <h2>Submit a Report</h2>
+    <form id="reportForm">
+      <textarea id="content" name="content" placeholder="Describe the issue" rows="6" required></textarea>
+      <button type="submit">Submit Report</button>
+    </form>
+    <div id="msg" style="margin-top:12px;"></div>
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const f = document.getElementById("reportForm");
+      const msg = document.getElementById("msg");
+      if (!f) return;
+      f.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const content = document.getElementById("content").value.trim();
+        if (!content) return msg.innerText = "Please describe the issue.";
+        const res = await apiPost("/api/reports", { content });
+        if (res && res._id) msg.innerText = "Report submitted.";
+        else msg.innerText = res?.message || "Failed to submit.";
+      });
+    });
+  </script>
+</body>
+</html>

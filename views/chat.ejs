@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShareNStudy - Chat</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/socket.io/socket.io.js" defer></script>
+</head>
+<body>
+  <div class="topbar"><div class="logo">ShareNStudy</div><div class="nav"><a href="/dashboard">Dashboard</a></div></div>
+
+  <div class="container">
+    <h2>Chat</h2>
+    <div id="chatInfo" class="chat-info">Open a request to start chatting.</div>
+    <div id="messages" class="chat-messages"></div>
+    <form id="chatForm" class="chat-form">
+      <input id="msgInput" placeholder="Type a message" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script>
+    // Minimal example: requires requestId to be provided or selected by user
+    document.addEventListener("DOMContentLoaded", () => {
+      const socket = io();
+      // Example: prompt for requestId (improve in real UI)
+      const requestId = prompt("Enter requestId to join chat (example only):");
+      if (!requestId) return;
+      socket.emit("join", requestId);
+      const messagesEl = document.getElementById("messages");
+      socket.on("message", (m) => {
+        const div = document.createElement("div");
+        div.className = "chat-message";
+        div.innerHTML = `<div class="meta">${m.senderName || 'User'} <span>${new Date().toLocaleTimeString()}</span></div><div class="text">${m.text}</div>`;
+        messagesEl.appendChild(div);
+      });
+
+      const f = document.getElementById("chatForm");
+      f.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const t = document.getElementById("msgInput").value.trim();
+        if (!t) return;
+        socket.emit("message", { room: requestId, text: t });
+        document.getElementById("msgInput").value = "";
+      });
+    });
+  </script>
+</body>
+</html>

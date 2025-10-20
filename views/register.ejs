@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShareNStudy - Register</title>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+</head>
+<body>
+  <div class="container auth">
+    <h1>Register (Student)</h1>
+    <form id="regForm" autocomplete="on">
+      <input id="name" name="name" placeholder="Full name" required autocomplete="name">
+      <input id="email" name="email" type="email" placeholder="Email" required autocomplete="email">
+      <input id="password" name="password" type="password" placeholder="Password" required autocomplete="new-password">
+      <input id="phone" name="phone" placeholder="Phone">
+      <button type="submit">Register</button>
+    </form>
+    <p>Already registered? <a href="/">Login</a></p>
+    <div id="msg" class="msg" aria-live="polite" style="min-height:18px;margin-top:8px;"></div>
+    <pre id="debug" style="margin-top:12px;padding:8px;border-radius:6px;background:#fff;border:1px solid #e6e6e6;max-height:220px;overflow:auto;font-size:13px;display:none;"></pre>
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script src="/js/register.js" defer></script>
+</body>
+</html>

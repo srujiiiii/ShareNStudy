@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShareNStudy - MyShelf</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">ShareNStudy</div>
+    <div class="nav"><a href="/dashboard">Dashboard</a></div>
+  </div>
+
+  <div class="container">
+    <h2>MyShelf</h2>
+    <p>Your listings appear here. This page should call <code>/api/books/my</code>.</p>
+    <div id="myshelfList" class="list"></div>
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      if (!localStorage.getItem("token")) return window.location.href = "/";
+      const el = document.getElementById("myshelfList");
+      const books = await apiGet("/api/books/my");
+      el.innerHTML = (books || []).map(b => `<div class="item"><strong>${b.title}</strong> — ${b.status}</div>`).join("") || "No listings yet.";
+    });
+  </script>
+</body>
+</html>

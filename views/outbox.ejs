@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShareNStudy - Outbox</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="topbar"><div class="logo">ShareNStudy</div><div class="nav"><a href="/dashboard">Dashboard</a></div></div>
+  <div class="container">
+    <h2>Outbox (Requests Sent)</h2>
+    <div id="outboxList" class="list"></div>
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      if (!localStorage.getItem("token")) return window.location.href = "/";
+      const list = await apiGet("/api/requests/outbox");
+      const el = document.getElementById("outboxList");
+      el.innerHTML = (list || []).map(r => `<div class="item"><strong>${r.book?.title || 'Book'}</strong> — to ${r.owner?.name || 'Owner'} — status: ${r.status}</div>`).join("") || "No requests.";
+    });
+  </script>
+</body>
+</html>

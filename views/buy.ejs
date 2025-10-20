@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShareNStudy - Buy</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">ShareNStudy</div>
+    <div class="nav">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/profile">Profile</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Buy</h2>
+    <p>Search and browse books here. The frontend should call <code>/api/books</code>.</p>
+    <div id="booksList" class="list"></div>
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script>
+    // example fetch - replace with full UI
+    document.addEventListener("DOMContentLoaded", async () => {
+      const el = document.getElementById("booksList");
+      const books = await apiGet("/api/books");
+      if (!books || !books.length) { el.innerText = "No books found."; return; }
+      el.innerHTML = books.map(b => `<div class="item"><strong>${b.title}</strong> — ${b.author || ""}</div>`).join("");
+    });
+  </script>
+</body>
+</html>

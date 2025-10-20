@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShareNStudy - Login</title>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+</head>
+<body>
+  <div class="container auth">
+    <h1>ShareNStudy</h1>
+    <div class="toggle" role="tablist" aria-label="Login type">
+      <button id="studentBtn" class="active" role="tab" aria-selected="true" tabindex="0">Student</button>
+      <button id="adminBtn" role="tab" aria-selected="false" tabindex="0">Admin</button>
+    </div>
+
+    <form id="loginForm" autocomplete="on">
+      <input type="hidden" id="roleField" name="role" value="student" />
+      <input type="email" id="email" placeholder="Email" required autocomplete="email" />
+      <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="registerLink">Don't have account? <a href="/register">Register</a></p>
+    <div id="msg" class="msg" aria-live="polite" style="min-height:18px;margin-top:8px;"></div>
+    <pre id="debug" style="margin-top:12px;padding:8px;border-radius:6px;background:#fff;border:1px solid #e6e6e6;max-height:220px;overflow:auto;font-size:13px;display:none;"></pre>
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script src="/js/login.js" defer></script>
+</body>
+</html>
