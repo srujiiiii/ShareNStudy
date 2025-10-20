@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin - Users</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="topbar"><div class="logo">ShareNStudy - Admin</div><div class="nav"><a href="/admin/admin-dashboard">Dashboard</a></div></div>
+  <div class="container">
+    <h2>Users</h2>
+    <div id="usersList" class="list"></div>
+  </div>
+  <script src="/js/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const list = await apiGet("/api/admin/users");
+      document.getElementById("usersList").innerHTML = (list || []).map(u => `<div class="item">${u.name} — ${u.email} ${u.isBlocked ? '(blocked)' : ''}</div>`).join("") || "No users.";
+    });
+  </script>
+</body>
+</html>

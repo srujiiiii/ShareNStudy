@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin - Admins</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="topbar"><div class="logo">ShareNStudy - Admin</div><div class="nav"><a href="/admin/admin-dashboard">Dashboard</a></div></div>
+  <div class="container">
+    <h2>Admins</h2>
+    <p>Admin management placeholder. Use <code>/api/admin/admins</code> on the backend.</p>
+    <div id="adminsList" class="list"></div>
+  </div>
+  <script src="/js/main.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const list = await apiGet("/api/admin/admins");
+      document.getElementById("adminsList").innerHTML = (list || []).map(a => `<div class="item">${a.name} — ${a.email}</div>`).join("") || "No admins.";
+    });
+  </script>
+</body>
+</html>
